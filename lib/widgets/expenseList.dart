@@ -1,6 +1,7 @@
 import "package:expense_tracker/models/expense.dart";
 import "package:flutter/material.dart";
 
+/*this widget is stateless because only render re genrated data from expensesList class*/
 class ExpensesList extends StatelessWidget {
   const ExpensesList({super.key, required this.expenses});
 
