@@ -16,6 +16,13 @@ class ExpensesItem extends StatelessWidget {
             Row(
               children: [
                 Text('\$${expense.amount.toStringAsFixed(2)}'),
+                const Spacer(),
+                Row(
+                  children: [
+                    Icon(categoryIcon[expense.category]),
+                    Text(" ${expense.formattedDate}"),
+                  ],
+                ),
               ],
             ),
           ],
@@ -24,6 +31,3 @@ class ExpensesItem extends StatelessWidget {
     );
   }
 }
-/*Column(
-        children: [Text(expense.title),],
-      ), */
