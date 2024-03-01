@@ -1,5 +1,6 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/expense_List/expense_List.dart';
+import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -70,6 +71,14 @@ class _ExpensesState extends State<Expenses> {
         amount: 200.0,
         category: Category.travel)
   ];
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return const NewExpense();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,42 +91,7 @@ class _ExpensesState extends State<Expenses> {
         title: const Text('Flutter ExpenseTracker'),
         actions: [
           IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.music_note),
-                          title: Text('Music'),
-                          onTap: () {
-                            // Handle music action
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.photo),
-                          title: Text('Photos'),
-                          onTap: () {
-                            // Handle photos action
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.videocam),
-                          title: Text('Videos'),
-                          onTap: () {
-                            // Handle videos action
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
+            onPressed: _openAddExpenseOverlay,
             icon: const Icon(Icons.add),
           ),
         ],
