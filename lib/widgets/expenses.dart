@@ -49,7 +49,7 @@ class _ExpensesState extends State<Expenses> {
         title: "paris to london",
         date: DateTime.now(),
         amount: 200.0,
-        category: Category.travel),
+        category: Category.food),
     Expense(
         title: "paris to london",
         date: DateTime.now(),
@@ -59,7 +59,7 @@ class _ExpensesState extends State<Expenses> {
         title: "paris to london",
         date: DateTime.now(),
         amount: 200.0,
-        category: Category.travel),
+        category: Category.work),
     Expense(
         title: "paris to london",
         date: DateTime.now(),
@@ -69,7 +69,7 @@ class _ExpensesState extends State<Expenses> {
         title: "paris to london",
         date: DateTime.now(),
         amount: 200.0,
-        category: Category.travel)
+        category: Category.leisure)
   ];
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
