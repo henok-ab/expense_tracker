@@ -77,7 +77,7 @@ class _ExpensesState extends State<Expenses> {
       builder: (BuildContext context) {
         return const NewExpense();
       },
-    );
+    ); //this gets widget of new expense that is stateful.
   }
 
   @override
