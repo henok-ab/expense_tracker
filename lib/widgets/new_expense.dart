@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import "package:expense_tracker/models/expense.dart";
 
@@ -14,13 +16,11 @@ class _NewExpenseState extends State<NewExpense> {
   var _enteredTitle = '';
   Category _selectedCategory = Category.leisure;
 
-  void _saveTitleInput(String inputValue) {
-    _enteredTitle = inputValue;
-  }
-
+  final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   @override
   void dispose() {
+    _titleController.dispose();
     _amountController.dispose();
     super.dispose();
   }
@@ -41,6 +41,36 @@ class _NewExpenseState extends State<NewExpense> {
             ));
   }
 
+  void _submitNewExpense() {
+    final EnteredTitle = _titleController.text;
+    final EnteredAmount = double.tryParse(_amountController
+        .text); // this for tryParse('helloworld') => null  or tryParse('23')=> 23
+
+    bool amountIsInValid = EnteredAmount == null || EnteredAmount <= 0;
+    if (EnteredTitle.trim().isEmpty ||
+        amountIsInValid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          // title content action
+          title: const Text('input invalid'),
+          content: const Text(
+              'please input valid  title, amount, date and catagory'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('okey'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,9 +78,9 @@ class _NewExpenseState extends State<NewExpense> {
       child: Column(children: [
         TextField(
           maxLength: 50,
-          onChanged: _saveTitleInput,
+          controller: _titleController,
           decoration: const InputDecoration(
-            label: Text('title'),
+            label: Text('Title'),
           ),
         ),
         Row(
@@ -60,7 +90,7 @@ class _NewExpenseState extends State<NewExpense> {
                 controller: _amountController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                    label: Text('amount'), prefixText: '\$'),
+                    label: Text('Amount'), prefixText: '\$'),
               ),
             ),
             Expanded(
@@ -106,10 +136,7 @@ class _NewExpenseState extends State<NewExpense> {
               child: const Text('cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
-                print(_enteredTitle);
-                print(_amountController.text);
-              },
+              onPressed: _submitNewExpense,
               child: const Text('Save Expense'),
             )
           ],
