@@ -12,6 +12,7 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpenseState extends State<NewExpense> {
   var _enteredTitle = '';
+  Category _selectedCategory = Category.leisure;
 
   void _saveTitleInput(String inputValue) {
     _enteredTitle = inputValue;
@@ -28,15 +29,16 @@ class _NewExpenseState extends State<NewExpense> {
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final pickedDate = await showDatePicker(
-        context: context,
-        initialDate: now,
-        firstDate: firstDate,
-        lastDate: now);
-    @override
-    void setState() {
-      _selectedDate = pickedDate;
-    }
+    await showDatePicker(
+            context: context,
+            initialDate: now,
+            firstDate: firstDate,
+            lastDate: now)
+        .then((value) => setState(
+              () {
+                _selectedDate = value;
+              },
+            ));
   }
 
   @override
@@ -66,9 +68,9 @@ class _NewExpenseState extends State<NewExpense> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(_selectedDate == null
-                      ? 'no selected'
-                      : formatter.format(_selectedDate!)),
+                  Text(_selectedDate != null
+                      ? formatter.format(_selectedDate!)
+                      : 'no selected'),
                   IconButton(
                     onPressed: _presentDatePicker,
                     icon: const Icon(Icons.calendar_month),
@@ -78,9 +80,25 @@ class _NewExpenseState extends State<NewExpense> {
             )
           ],
         ),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            DropdownButton(
+                value: _selectedCategory,
+                items: Category.values
+                    .map((e) => DropdownMenuItem(
+                        value: e, child: Text(e.name.toString().toUpperCase())))
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                }),
+            const Spacer(),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
