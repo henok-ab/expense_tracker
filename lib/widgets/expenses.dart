@@ -16,36 +16,6 @@ class _ExpensesState extends State<Expenses> {
   // to show some dummy data
   final List<Expense> _registerdExpenses = [
     Expense(
-        title: "flutter course",
-        date: DateTime.now(),
-        amount: 19.0,
-        category: Category.work),
-    Expense(
-        title: "paris to london",
-        date: DateTime.now(),
-        amount: 200.0,
-        category: Category.travel),
-    Expense(
-        title: "paris to london",
-        date: DateTime.now(),
-        amount: 200.0,
-        category: Category.travel),
-    Expense(
-        title: "paris to london",
-        date: DateTime.now(),
-        amount: 200.0,
-        category: Category.travel),
-    Expense(
-        title: "paris to london",
-        date: DateTime.now(),
-        amount: 200.0,
-        category: Category.travel),
-    Expense(
-        title: "paris to london",
-        date: DateTime.now(),
-        amount: 200.0,
-        category: Category.travel),
-    Expense(
         title: "paris to london",
         date: DateTime.now(),
         amount: 200.0,
